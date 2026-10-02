@@ -1,0 +1,104 @@
+{
+  "entities": {
+    "Booking": {
+      "title": "Booking",
+      "description": "Cricket tournament broadcasting booking request submitted by client or organizer",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique booking identifier e.g. ITC-2026-XXXX" },
+        "clientName": { "type": "string", "description": "Full name of organizer or committee head" },
+        "organization": { "type": "string", "description": "Club, Committee, or Organization name" },
+        "mobile": { "type": "string", "description": "10-digit primary mobile contact" },
+        "whatsapp": { "type": "string", "description": "WhatsApp contact number for updates" },
+        "email": { "type": "string", "description": "Client email address" },
+        "eventName": { "type": "string", "description": "Tournament or Trophy event name" },
+        "eventType": { "type": "string", "description": "Type of event e.g. Cricket Tournament" },
+        "venue": { "type": "string", "description": "Cricket ground or stadium name" },
+        "city": { "type": "string", "description": "Host city e.g. Bangalore, Tumkur" },
+        "eventDate": { "type": "string", "description": "Starting date of tournament" },
+        "startTime": { "type": "string", "description": "Match start time" },
+        "endTime": { "type": "string", "description": "Match conclusion time" },
+        "days": { "type": "number", "description": "Number of tournament days" },
+        "packageId": { "type": "string", "description": "Broadcast package identifier" },
+        "packageName": { "type": "string", "description": "Broadcast package title and camera configuration" },
+        "quotationAmount": { "type": "number", "description": "Quotation price in INR" },
+        "advancePaid": { "type": "number", "description": "Advance token deposit paid in INR" },
+        "balanceDue": { "type": "number", "description": "Remaining balance to be settled" },
+        "status": { "type": "string", "enum": ["NEW", "CONFIRMED", "COMPLETED", "CANCELLED"], "description": "Booking workflow state" },
+        "createdAt": { "type": "string", "description": "ISO timestamp of submission" }
+      },
+      "required": ["id", "clientName", "mobile", "eventName", "venue", "eventDate", "status"]
+    },
+    "Invoice": {
+      "title": "Invoice",
+      "description": "Cricket broadcasting tax invoice or quotation generated for tournament organizers",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique invoice internal ID" },
+        "invoiceNumber": { "type": "string", "description": "Serialized invoice code e.g. ITC-INV-2026-XXXX" },
+        "clientName": { "type": "string", "description": "Client organizer name" },
+        "organization": { "type": "string", "description": "Organization or cricket association" },
+        "clientPhone": { "type": "string", "description": "Organizer phone number" },
+        "clientEmail": { "type": "string", "description": "Organizer email" },
+        "eventName": { "type": "string", "description": "Tournament title on the invoice" },
+        "date": { "type": "string", "description": "Invoice issuance date" },
+        "totalAmount": { "type": "number", "description": "Total gross amount in INR" },
+        "advancePaid": { "type": "number", "description": "Advance collected" },
+        "balanceDue": { "type": "number", "description": "Balance due" },
+        "paymentStatus": { "type": "string", "enum": ["PAID", "PARTIAL", "UNPAID"], "description": "Status of invoice settlement" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" }
+      },
+      "required": ["id", "invoiceNumber", "clientName", "totalAmount", "paymentStatus", "date"]
+    },
+    "Client": {
+      "title": "Client",
+      "description": "Client profile saved in CRM directory",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Client identifier" },
+        "name": { "type": "string", "description": "Contact name" },
+        "organization": { "type": "string", "description": "Club name" },
+        "phone": { "type": "string", "description": "Contact phone" },
+        "email": { "type": "string", "description": "Contact email" },
+        "city": { "type": "string", "description": "City" },
+        "totalEvents": { "type": "number", "description": "Count of tournaments booked" }
+      },
+      "required": ["id", "name", "phone"]
+    },
+    "LiveStream": {
+      "title": "LiveStream",
+      "description": "Live broadcasting channel and current match banner",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Stream document ID" },
+        "isLive": { "type": "boolean", "description": "Whether broadcast is currently live" },
+        "youtubeVideoId": { "type": "string", "description": "YouTube live video ID or stream key" },
+        "matchTitle": { "type": "string", "description": "Tournament match heading" },
+        "tournamentName": { "type": "string", "description": "Tournament title" },
+        "teams": { "type": "string", "description": "Playing teams" },
+        "score": { "type": "string", "description": "Current live match score" },
+        "venue": { "type": "string", "description": "Ground venue" },
+        "updatedAt": { "type": "string", "description": "Last updated timestamp" }
+      },
+      "required": ["id", "isLive", "matchTitle"]
+    }
+  },
+  "firestore": {
+    "/bookings/{bookingId}": {
+      "schema": "Booking",
+      "description": "Client booking requests collected from website booking form and synchronized to Admin Panel"
+    },
+    "/invoices/{invoiceId}": {
+      "schema": "Invoice",
+      "description": "Invoices and quotations generated by admin, permanently stored in database"
+    },
+    "/clients/{clientId}": {
+      "schema": "Client",
+      "description": "Organizer address book and recurring client records"
+    },
+    "/livestream/{streamId}": {
+      "schema": "LiveStream",
+      "description": "Live match stream metadata and scores displayed on public site"
+    }
+  }
+}

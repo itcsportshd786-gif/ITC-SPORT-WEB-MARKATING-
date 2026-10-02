@@ -124,6 +124,7 @@ export interface Invoice {
   paymentStatus: PaymentStatus;
   notes: string;
   terms: string;
+  createdAt?: string;
 }
 
 export type EventStatus = 'UPCOMING' | 'LIVE' | 'COMPLETED';

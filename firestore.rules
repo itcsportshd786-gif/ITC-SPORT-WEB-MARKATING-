@@ -1,0 +1,34 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Test connection doc
+    match /test/{docId} {
+      allow read, write: if true;
+    }
+
+    // Bookings: Public can create new bookings; All can read / update
+    match /bookings/{bookingId} {
+      allow create: if request.resource.data.clientName is string 
+                    && request.resource.data.mobile is string
+                    && request.resource.data.eventName is string;
+      allow read, update, delete: if true;
+    }
+
+    // Invoices: Stored invoices created by admin
+    match /invoices/{invoiceId} {
+      allow read, write: if true;
+    }
+
+    // Clients directory
+    match /clients/{clientId} {
+      allow read, write: if true;
+    }
+
+    // Live Stream match data
+    match /livestream/{streamId} {
+      allow read: if true;
+      allow write: if true;
+    }
+  }
+}

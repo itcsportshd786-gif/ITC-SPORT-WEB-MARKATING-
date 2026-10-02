@@ -608,7 +608,12 @@ Experience the Game Like Never Before.
               <Calendar className="w-4 h-4 text-blue-300" />
               <span>Bookings & Balances</span>
             </div>
-            {pendingBalanceCount > 0 ? (
+            {newInquiriesCount > 0 ? (
+              <span className="px-2 py-0.5 rounded-full bg-rose-600 text-white text-[10px] font-mono font-bold animate-pulse shadow-sm flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
+                {newInquiriesCount} NEW
+              </span>
+            ) : pendingBalanceCount > 0 ? (
               <span className="px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[10px] font-mono font-bold animate-pulse">
                 {pendingBalanceCount} Due
               </span>
@@ -646,6 +651,49 @@ Experience the Game Like Never Before.
 
         {/* Main Content Area */}
         <main className="flex-1 bg-[#04070d] p-4 sm:p-8 overflow-y-auto">
+
+          {/* REAL-TIME INCOMING BOOKING ALERT BANNER */}
+          {newInquiriesCount > 0 && (
+            <div className="mb-6 bg-gradient-to-r from-rose-950/90 via-red-900/60 to-rose-950/90 border-2 border-rose-500 rounded-2xl p-4 sm:p-5 shadow-2xl flex flex-wrap items-center justify-between gap-4 animate-fade-in">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-xl bg-rose-500/20 border border-rose-400 flex items-center justify-center text-rose-300 text-xl font-bold animate-pulse">
+                  🏏
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="px-2.5 py-0.5 rounded-full bg-rose-600 text-white font-mono text-[10px] font-black uppercase tracking-wider shadow-sm">
+                      🔴 LIVE NOTICE: NEW EVENT BOOKING RECEIVED!
+                    </span>
+                    <span className="text-xs text-rose-200 font-bold">
+                      {newInquiriesCount} New {newInquiriesCount === 1 ? 'Inquiry' : 'Inquiries'}
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-200 mt-1 font-medium">
+                    Client ne website se booking inquiry submit ki hai! Click karke turant WhatsApp Bill generate karein.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2.5">
+                <button
+                  onClick={() => setAdminTab('bookings')}
+                  className="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg transition-all cursor-pointer flex items-center gap-1.5"
+                >
+                  <span>Check Inquiries ({newInquiriesCount}) →</span>
+                </button>
+                <button
+                  onClick={() => {
+                    const newest = bookings.find((b) => b.status === 'NEW');
+                    if (newest) handleSelectInquiry(newest);
+                  }}
+                  className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg transition-all cursor-pointer flex items-center gap-1.5"
+                >
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>⚡ 1-Click Bill & WhatsApp</span>
+                </button>
+              </div>
+            </div>
+          )}
           
           {/* TAB 1: YOUTUBE LIVE STREAM MANAGER */}
           {(adminTab === 'livestream' || adminTab === 'dashboard') && (
