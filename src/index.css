@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --theme-primary: #0284c7;
+    --theme-primary-hover: #0369a1;
+    --theme-secondary: #0f172a;
+    --theme-accent: #38bdf8;
+    --theme-accent-glow: rgba(56, 189, 248, 0.35);
+    --theme-bg: #05070c;
+    --theme-surface: #0b111e;
+    --theme-surface-border: #1e293b;
+    --theme-button: #2563eb;
+    --theme-button-text: #ffffff;
+    --theme-text: #f8fafc;
+    --theme-text-muted: #94a3b8;
+  }
+
+  body {
+    background-color: var(--theme-bg);
+    color: var(--theme-text);
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-broadcast {
+    font-family: 'Rajdhani', 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: 0.02em;
+  }
+
+  .font-mono-numbers {
+    font-family: 'JetBrains Mono', monospace;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Custom broadcast glows & animations */
+@keyframes pulse-live {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.8);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(0.92);
+    box-shadow: 0 0 4px rgba(239, 68, 68, 0.3);
+  }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(1000%); }
+}
+
+@keyframes radar-sweep {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-pulse-live {
+  animation: pulse-live 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-radar {
+  animation: radar-sweep 12s linear infinite;
+}
+
+/* Broadcast grid background */
+.broadcast-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.broadcast-scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.03),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 3px, 6px 100%;
+  pointer-events: none;
+}
+
+/* Glass panel */
+.broadcast-card {
+  background: rgba(11, 17, 30, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.broadcast-card:hover {
+  border-color: rgba(56, 189, 248, 0.3);
+  box-shadow: 0 10px 30px -10px rgba(2, 132, 199, 0.2);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #05070c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}

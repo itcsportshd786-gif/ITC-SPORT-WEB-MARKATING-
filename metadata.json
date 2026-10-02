@@ -1,0 +1,6 @@
+{
+  "name": "ITC SPORTS - Live Sports Broadcasting & Production",
+  "description": "Professional sports broadcasting and multi-camera production for cricket tournaments and live sporting events. Ultra-HD camera setups, instant replay, and live scoreboards.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
