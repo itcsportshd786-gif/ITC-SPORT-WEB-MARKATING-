@@ -386,7 +386,7 @@ Please transfer the requested advance amount of *₹${advanceAsked.toLocaleStrin
 • UPI ID: *9986095581@upi* (ITC Sports Live)
 • Account Name: *ITC Sports Live Broadcasting*
 • Bank: *State Bank of India*
-• Branch: *Bangalore Main Branch*
+• Branch: *Belagavi Main Branch*
 
 Please send payment screenshot / UTR number here on WhatsApp once transferred.
 
@@ -669,7 +669,7 @@ Experience the Game Like Never Before.
                     </span>
                   </div>
                   <p className="text-xs text-slate-200 mt-1 font-medium">
-                    Client ne website se booking inquiry submit ki hai! Click karke turant WhatsApp Bill generate karein.
+                    A client has submitted a cricket tournament broadcast booking request! Review and generate the official bill via WhatsApp.
                   </p>
                 </div>
               </div>
@@ -706,7 +706,7 @@ Experience the Game Like Never Before.
                   YouTube Live Match Broadcast Manager
                 </h2>
                 <p className="text-xs text-slate-400 mt-1">
-                  Yahan apni YouTube link daalo. Agar match LIVE hai toh LIVE tick karo, client ko website me se sidha live telecast milega.
+                  Enter your YouTube live stream URL below. When LIVE is enabled, visitors will see the official live match stream directly on the website.
                 </p>
               </div>
 
@@ -761,7 +761,7 @@ Experience the Game Like Never Before.
                     </label>
                     <input
                       type="text"
-                      placeholder="e.g. KPL Season 4 - Grand Final: Bangalore vs Mysore"
+                      placeholder="e.g. Belagavi Premier League - Grand Final"
                       value={liveStreamForm.matchTitle}
                       onChange={(e) => setLiveStreamForm({ ...liveStreamForm, matchTitle: e.target.value })}
                       className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white text-xs focus:outline-none focus:border-rose-500"
@@ -853,7 +853,7 @@ Experience the Game Like Never Before.
                           Invoice Saved Permanently for {lastDispatchedInfo.clientName} ({lastDispatchedInfo.clientPhone})
                         </h4>
                         <p className="text-[11px] text-emerald-300/80">
-                          ✓ Record database me save ho chuka hai. Niche di gayi link se chat kholiye ya naya bill banayein.
+                          ✓ Record saved to database successfully. Open WhatsApp chat using the button below or create another bill.
                         </p>
                       </div>
                     </div>
@@ -953,7 +953,7 @@ Experience the Game Like Never Before.
                   </select>
 
                   <span className="text-[11px] text-slate-400 text-center sm:text-left">
-                    Ya niche direct Client Name type karein
+                    Or type Client / Organizer Name below
                   </span>
                 </div>
               </div>
@@ -1030,7 +1030,7 @@ Experience the Game Like Never Before.
                       className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-sky-500"
                     />
                     <p className="text-[10px] text-slate-500 mt-1">
-                      💡 Tip: Kisi bhi client ka name type karenge toh contact number aur match details auto-fill ho jayengi!
+                      💡 Tip: Selecting a client automatically auto-fills their contact number and match details!
                     </p>
                   </div>
 
@@ -1047,7 +1047,7 @@ Experience the Game Like Never Before.
                       className="w-full px-3.5 py-2.5 bg-slate-950 border border-emerald-500/70 rounded-xl text-white font-mono focus:outline-none focus:border-emerald-400"
                     />
                     <p className="text-[10px] text-slate-400 mt-1">
-                      Confirmation msg aur bill direct is WhatsApp number par receive hoga.
+                      Confirmation message and official invoice will be dispatched directly to this WhatsApp number.
                     </p>
                   </div>
 
@@ -1236,7 +1236,7 @@ Experience the Game Like Never Before.
                     <span>CONFIRM BOOKING & SEND BILL + ADVANCE REQUEST ON WHATSAPP</span>
                   </button>
                   <p className="text-[11px] text-center text-slate-400 mt-2">
-                    Click karte hi invoice generate hoga aur client ko WhatsApp par complete confirmation msg + advance payment details dispatch ho jayengi.
+                    Generating the invoice will save it permanently in the system and dispatch the confirmation message and advance request to the client on WhatsApp.
                   </p>
                 </div>
 
@@ -1295,7 +1295,7 @@ Experience the Game Like Never Before.
                   Media Gallery Manager (Add & Delete Photos)
                 </h2>
                 <p className="text-xs text-slate-400 mt-1">
-                  Yahan se aap khud photos ya videos add kar sakte hain (file upload ya image link) aur purani photos ko 1-click me delete kar sakte hain.
+                  Upload and manage your match broadcast photos and videos (file upload or image link) and manage your verified track record.
                 </p>
               </div>
 
@@ -1469,7 +1469,7 @@ Experience the Game Like Never Before.
                       Client Bookings, Messages & Balance Tracker
                     </h2>
                     <p className="text-xs text-slate-400 mt-1">
-                      Website se aane wale sabhi client messages aur bookings yahan milenge. Har client ka quotation, advance aur pending balance track karein aur 1-click me WhatsApp balance reminder send karein.
+                      Manage all incoming client reservations and bookings here. Track agreed package rates, advance payments, and remaining balances, and send 1-click WhatsApp payment reminders.
                     </p>
                   </div>
 
@@ -1505,8 +1505,8 @@ Experience the Game Like Never Before.
                         </span>
                       </h4>
                       <p className="text-xs text-slate-300 leading-relaxed">
-                        • <strong>Advance milne par:</strong> Kisi bhi client card par <strong>"Record Advance"</strong> click karein → Advance amount enter karein → Client ke WhatsApp par turant <strong>Advance Receipt</strong> chali jayegi.<br />
-                        • <strong>Full payment hone par:</strong> <strong>"Record Full Payment"</strong> click karein → Client ko <strong>Thank You</strong> message dispatch hoga aur tournament status <strong>COMPLETED</strong> ho kar website ke <strong>Completed Broadcasts Gallery</strong> me automatic show hone lagega!
+                        • <strong>When Advance is received:</strong> Click <strong>"Record Advance"</strong> on any booking → Enter advance amount → An official <strong>Advance Receipt</strong> is instantly sent to the client on WhatsApp.<br />
+                        • <strong>When Final Payment is cleared:</strong> Click <strong>"Record Full Payment"</strong> → A <strong>Thank You</strong> message is dispatched and the tournament status is marked <strong>COMPLETED</strong>, automatically adding it to the website's <strong>Completed Broadcasts Gallery</strong>!
                       </p>
                     </div>
                   </div>
@@ -1999,7 +1999,7 @@ Experience the Game Like Never Before.
                   Broadcast Packages & Camera Tiers
                 </h2>
                 <p className="text-xs text-slate-400 mt-1">
-                  Yahan se aap public website par dikhne wale packages ke features ya pricing text change kar sakte hain.
+                  Manage the packages and camera production tiers displayed on the public website.
                 </p>
               </div>
 
@@ -2057,7 +2057,7 @@ Experience the Game Like Never Before.
                   Admin Password & Theme Settings
                 </h2>
                 <p className="text-xs text-slate-400 mt-1">
-                  Yahan se apna login password change karein ya website ka theme color badlein.
+                  Update your administrative login password and customize website theme colors.
                 </p>
               </div>
 

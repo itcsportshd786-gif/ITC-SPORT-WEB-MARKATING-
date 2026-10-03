@@ -58,7 +58,7 @@ export const GallerySection: React.FC = () => {
           </h2>
 
           <p className="text-xs sm:text-sm text-slate-400">
-            Real action highlights, live tournament deliveries, and ground rigs. Har completed tournament yahan record hota hai, showcasing our 100% on-time broadcast commitment.
+            Real action highlights, live tournament deliveries, and ground rigs. Every completed tournament is recorded here, showcasing our 100% on-time broadcast commitment.
           </p>
         </div>
 

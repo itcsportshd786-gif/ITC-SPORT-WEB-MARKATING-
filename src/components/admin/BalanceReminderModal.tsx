@@ -45,7 +45,7 @@ export const BalanceReminderModal: React.FC<BalanceReminderModalProps> = ({ book
 Dear *${booking.clientName}*,
 Greetings from the *ITC SPORTS* production desk.
 
-Aapke tournament booking confirmation ko *${daysElapsed} din* ho chuke hain (10-day booking grace period complete ho chuka hai).
+It has been *${daysElapsed} days* since your tournament booking confirmation (10-day booking grace period completed).
 
 📋 *Booking Details:*
 • Booking ID: *#${booking.id}*
@@ -62,7 +62,7 @@ Aapke tournament booking confirmation ko *${daysElapsed} din* ho chuke hain (10-
 Kindly arrange to clear this pending balance of *₹${balanceDue.toLocaleString('en-IN')}* at your earliest convenience to lock the technical crew, live streaming servers, and third umpire equipment.
 
 Official UPI / GPay / PhonePe: *9986095581* (ITC Sports Live)
-Payment complete karke screenshot yahan WhatsApp par share karein.
+Please share the payment confirmation screenshot here on WhatsApp once completed.
 
 Thank you!
 *ITC SPORTS Broadcast Operations*

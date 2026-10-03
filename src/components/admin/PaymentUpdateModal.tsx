@@ -58,23 +58,29 @@ export const PaymentUpdateModal: React.FC<PaymentUpdateModalProps> = ({
 
   const [autoCloseCountdown, setAutoCloseCountdown] = useState<number | null>(null);
 
-  // Auto-close effect when receipt is dispatched so the board never sits stuck
+  // Auto-close effect when receipt is dispatched
   useEffect(() => {
     if (dispatchedReceipt) {
       setAutoCloseCountdown(5);
       const interval = setInterval(() => {
         setAutoCloseCountdown((prev) => {
-          if (prev === null || prev <= 1) {
+          if (prev === null) return null;
+          if (prev <= 1) {
             clearInterval(interval);
-            onClose();
-            return null;
+            return 0;
           }
           return prev - 1;
         });
       }, 1000);
       return () => clearInterval(interval);
     }
-  }, [dispatchedReceipt, onClose]);
+  }, [dispatchedReceipt]);
+
+  useEffect(() => {
+    if (autoCloseCountdown === 0) {
+      onClose();
+    }
+  }, [autoCloseCountdown, onClose]);
 
   const cleanNumber = (booking.whatsapp || booking.mobile).replace(/\D/g, '');
   const finalPhone = cleanNumber.startsWith('91') ? cleanNumber : `91${cleanNumber}`;
@@ -151,9 +157,9 @@ Experience the Game Like Never Before.
 • Clearance Mode: *${paymentMethod}*
 
 🌟 *A HEARTFELT THANK YOU FROM ITC SPORTS:*
-Aapke tournament *${booking.eventName}* ki live broadcasting ko deliver karne ka anubhav bohot shaandar raha! Aapki organizing committee aur management ka cooperation behtareen tha.
+It was an absolute pleasure broadcasting your tournament *${booking.eventName}*! We sincerely appreciate the outstanding cooperation from your organizing committee and management team.
 
-Hum aage bhi aapke sabhi upcoming tournaments aur cricket leagues me international-standard broadcast provide karne ke liye hamesha taiyyar hain!
+We look forward to delivering international broadcast standards for all your upcoming tournaments and cricket leagues!
 
 🏏 *ITC SPORTS - Live Sports Broadcasting*
 Experience the Game Like Never Before.
@@ -291,7 +297,7 @@ Experience the Game Like Never Before.
                 {dispatchedReceipt.title} Recorded!
               </h3>
               <p className="text-xs text-slate-200 max-w-md mx-auto font-medium">
-                ✅ Record database me save ho chuka hai. Kisi cancel button ki zarurat nahi hai!
+                ✅ Record has been saved to the database successfully!
               </p>
 
               {autoCloseCountdown !== null && (

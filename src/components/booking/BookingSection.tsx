@@ -27,18 +27,18 @@ import {
 } from 'lucide-react';
 
 export const BookingSection: React.FC = () => {
-  const { packages, createBooking, preSelectedPackage, setPreSelectedPackage, settings } = useApp();
+  const { packages, createBooking, preSelectedPackage, settings } = useApp();
 
   const [formData, setFormData] = useState({
     clientName: '',
-    organization: '',
+    organization: 'Tournament Organizing Committee',
     mobile: '',
     whatsapp: '',
     email: '',
     eventName: '',
     eventType: 'Cricket Tournament',
     venue: '',
-    city: 'Bangalore',
+    city: 'Belagavi',
     eventDate: '',
     startTime: '08:30',
     endTime: '17:30',
@@ -71,38 +71,15 @@ export const BookingSection: React.FC = () => {
     }
   }, [preSelectedPackage]);
 
-  const availableServices = [
-    'Third Umpire / DRS Review Console',
-    'Instant Slow-Motion Replay Desk',
-    'Custom Sponsor Scoreboard Integration',
-    'Post-Match Highlight Reel Compilation',
-    'High-Altitude Drone Aerial Coverage',
-    'Dual-Language Commentary Booth Setup',
-    'Social Media Instant Clip Cutting'
-  ];
-
-  const toggleService = (srv: string) => {
-    setFormData((prev) => {
-      const exists = prev.additionalServices.includes(srv);
-      return {
-        ...prev,
-        additionalServices: exists
-          ? prev.additionalServices.filter((s) => s !== srv)
-          : [...prev.additionalServices, srv]
-      };
-    });
-  };
-
   const validate = () => {
     const errors: Record<string, string> = {};
     if (!formData.clientName.trim()) errors.clientName = 'Client / Organizer name is required';
-    if (!formData.mobile.trim() || formData.mobile.length < 10) errors.mobile = 'Valid 10-digit mobile required';
-    if (!formData.email.trim() || !formData.email.includes('@')) errors.email = 'Valid email address required';
+    if (!formData.mobile.trim() || formData.mobile.length < 10) errors.mobile = 'Valid 10-digit mobile number required';
     if (!formData.eventName.trim()) errors.eventName = 'Event / Tournament name is required';
     if (!formData.venue.trim()) errors.venue = 'Venue ground location is required';
     if (!formData.eventDate) errors.eventDate = 'Event start date is required';
     if (!formData.agreeAllTerms) {
-      errors.agreeAllTerms = 'Please tick and agree to the Organizer / Committee responsibilities (Traveling, Food & Stay, High-Speed WiFi, and Power).';
+      errors.agreeAllTerms = 'Please confirm and agree to the Organizer / Committee responsibilities (Traveling, Food & Stay, High-Speed WiFi, and Power).';
     }
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
@@ -176,12 +153,10 @@ export const BookingSection: React.FC = () => {
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 📋 *Booking Identification:*
-• Booking ID: *${booking.id}*
+• Booking ID: *#${booking.id}*
 • Client / Organizer: *${booking.clientName}*
-• Committee / Org: *${booking.organization || 'Individual Organizer'}*
 • Mobile: *${booking.mobile}*
 • WhatsApp: *${booking.whatsapp}*
-• Email: *${booking.email}*
 
 🏆 *Tournament Schedule:*
 • Event: *${booking.eventName}* (${booking.eventType})
@@ -189,16 +164,12 @@ export const BookingSection: React.FC = () => {
 • Date: *${booking.eventDate}* (${booking.days} Day/s)
 • Timing: *${booking.startTime} to ${booking.endTime}*
 • Production Package: *${booking.packageName}*
-• Add-on Services: *${booking.additionalServices.length > 0 ? booking.additionalServices.join(', ') : 'None'}*
 
 📋 *ORGANIZER / COMMITTEE PROVISIONS (CONFIRMED & AGREED):*
 ✓ *Traveling & Transport:* Arranged by Organizer
 ✓ *Food & Stay / Accommodation:* Provided by Committee
 ✓ *High-Speed Internet / WiFi:* Arranged at ground for 1080p live stream
-✓ *Continuous Power Supply:* Arranged by Committee
-
-Special Requirements: ${booking.requirements || 'Standard broadcast production'}
-Notes: ${booking.notes || 'None'}`;
+✓ *Continuous Power Supply:* Arranged by Committee`;
 
     return `https://wa.me/${finalNumber}?text=${encodeURIComponent(text)}`;
   };
@@ -213,12 +184,12 @@ Notes: ${booking.notes || 'None'}`;
       {/* Background radial glow */}
       <div className="absolute top-1/3 right-10 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-14 space-y-3">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-slate-900 border border-slate-800 text-xs font-semibold text-sky-400 uppercase tracking-widest">
-            <span>Direct Reservation Desk</span>
+            <span>Direct Reservation Desk · Belagavi</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-extrabold text-white font-broadcast uppercase tracking-tight">
             Book Your Tournament Broadcast
@@ -247,7 +218,7 @@ Notes: ${booking.notes || 'None'}`;
                 </h3>
 
                 <p className="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto leading-relaxed">
-                  Aapka event booking order successfully register ho gaya hai. ITC SPORTS broadcast production desk aapse jald hi call aur WhatsApp par contact karegi to finalize match schedule and crew dispatch.
+                  Your event booking order has been successfully registered. The ITC SPORTS broadcast production desk will contact you shortly via call and WhatsApp to finalize the match schedule and crew dispatch.
                 </p>
               </div>
 
@@ -263,8 +234,10 @@ Notes: ${booking.notes || 'None'}`;
                 <div>
                   <span className="text-slate-500 uppercase block font-bold">Organizer / Client</span>
                   <span className="text-white font-bold text-sm">{confirmedBooking.clientName}</span>
-                  <span className="text-slate-400 block text-[11px]">{confirmedBooking.organization || 'Tournament Committee'}</span>
                   <span className="text-slate-400 block text-[11px]">Ph: {confirmedBooking.mobile}</span>
+                  {confirmedBooking.whatsapp && confirmedBooking.whatsapp !== confirmedBooking.mobile && (
+                    <span className="text-slate-400 block text-[11px]">WA: {confirmedBooking.whatsapp}</span>
+                  )}
                 </div>
 
                 <div>
@@ -283,11 +256,6 @@ Notes: ${booking.notes || 'None'}`;
                 <div>
                   <span className="text-slate-500 uppercase block font-bold">Production Tier</span>
                   <span className="text-sky-400 font-bold text-sm">{confirmedBooking.packageName}</span>
-                  {confirmedBooking.additionalServices.length > 0 && (
-                    <span className="text-slate-400 text-[11px] block truncate">
-                      + {confirmedBooking.additionalServices.join(', ')}
-                    </span>
-                  )}
                 </div>
               </div>
 
@@ -359,7 +327,7 @@ Notes: ${booking.notes || 'None'}`;
                 </h3>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
                 <div>
                   <label className="block text-slate-300 font-semibold mb-1">
                     Client / Organizer Name *
@@ -369,29 +337,13 @@ Notes: ${booking.notes || 'None'}`;
                     <input
                       type="text"
                       required
-                      placeholder="e.g., Rajesh Gowda"
+                      placeholder="e.g., Rajesh Patil"
                       value={formData.clientName}
                       onChange={(e) => setFormData({ ...formData, clientName: e.target.value })}
                       className="w-full pl-9 pr-3 py-2.5 bg-slate-950/80 border border-slate-800 rounded-lg text-white focus:outline-none focus:border-sky-500"
                     />
                   </div>
                   {formErrors.clientName && <p className="text-rose-400 text-[11px] mt-1">{formErrors.clientName}</p>}
-                </div>
-
-                <div>
-                  <label className="block text-slate-300 font-semibold mb-1">
-                    Organization / Company / Club
-                  </label>
-                  <div className="relative">
-                    <Building className="absolute left-3 top-3 w-4 h-4 text-slate-500" />
-                    <input
-                      type="text"
-                      placeholder="e.g., Karnataka Premier Sports Trust"
-                      value={formData.organization}
-                      onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2.5 bg-slate-950/80 border border-slate-800 rounded-lg text-white focus:outline-none focus:border-sky-500"
-                    />
-                  </div>
                 </div>
 
                 <div>
@@ -414,7 +366,7 @@ Notes: ${booking.notes || 'None'}`;
 
                 <div>
                   <label className="block text-slate-300 font-semibold mb-1">
-                    WhatsApp Number (for immediate confirmation)
+                    WhatsApp Number (for confirmation)
                   </label>
                   <div className="relative">
                     <MessageSquare className="absolute left-3 top-3 w-4 h-4 text-slate-500" />
@@ -426,24 +378,6 @@ Notes: ${booking.notes || 'None'}`;
                       className="w-full pl-9 pr-3 py-2.5 bg-slate-950/80 border border-slate-800 rounded-lg text-white focus:outline-none focus:border-sky-500"
                     />
                   </div>
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="block text-slate-300 font-semibold mb-1">
-                    Email Address *
-                  </label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-3 w-4 h-4 text-slate-500" />
-                    <input
-                      type="email"
-                      required
-                      placeholder="e.g., organizer@cricketleague.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2.5 bg-slate-950/80 border border-slate-800 rounded-lg text-white focus:outline-none focus:border-sky-500"
-                    />
-                  </div>
-                  {formErrors.email && <p className="text-rose-400 text-[11px] mt-1">{formErrors.email}</p>}
                 </div>
               </div>
             </div>
@@ -465,7 +399,7 @@ Notes: ${booking.notes || 'None'}`;
                   <input
                     type="text"
                     required
-                    placeholder="e.g., Champions T20 Cup Season 5"
+                    placeholder="e.g., Belagavi Champions Trophy 2026"
                     value={formData.eventName}
                     onChange={(e) => setFormData({ ...formData, eventName: e.target.value })}
                     className="w-full px-3 py-2.5 bg-slate-950/80 border border-slate-800 rounded-lg text-white focus:outline-none focus:border-sky-500"
@@ -487,7 +421,7 @@ Notes: ${booking.notes || 'None'}`;
                     <option value="Corporate Cricket Cup">Corporate Cricket Cup</option>
                     <option value="Day-Night Exhibition Match">Day-Night Exhibition Match</option>
                     <option value="State / District Fixture">State / District Fixture</option>
-                    <option value="Football / Kabaddi / Other Sports">Other Sports Event</option>
+                    <option value="Other Sports Event">Other Sports Event</option>
                   </select>
                 </div>
 
@@ -500,7 +434,7 @@ Notes: ${booking.notes || 'None'}`;
                     <input
                       type="text"
                       required
-                      placeholder="e.g., Alur Cricket Stadium Ground 2"
+                      placeholder="e.g., Union Gymkhana Ground / Sardar Ground, Belagavi"
                       value={formData.venue}
                       onChange={(e) => setFormData({ ...formData, venue: e.target.value })}
                       className="w-full pl-9 pr-3 py-2.5 bg-slate-950/80 border border-slate-800 rounded-lg text-white focus:outline-none focus:border-sky-500"
@@ -571,12 +505,12 @@ Notes: ${booking.notes || 'None'}`;
               </div>
             </div>
 
-            {/* Step 3: Package & Services Selection */}
+            {/* Step 3: Package Selection */}
             <div className="space-y-4">
               <div className="flex items-center gap-2 border-b border-slate-800 pb-2">
                 <span className="w-6 h-6 rounded-full bg-sky-500 text-slate-950 font-bold text-xs flex items-center justify-center">3</span>
                 <h3 className="text-sm sm:text-base font-bold text-white uppercase font-broadcast tracking-wider">
-                  Production Package & Additional Tech
+                  Production Package Selection
                 </h3>
               </div>
 
@@ -603,90 +537,6 @@ Notes: ${booking.notes || 'None'}`;
                   ))}
                 </div>
               </div>
-
-              {/* Additional Services Checkboxes */}
-              <div className="space-y-2 pt-2">
-                <label className="block text-slate-300 font-semibold text-xs">
-                  Additional Add-on Services:
-                </label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                  {availableServices.map((srv) => {
-                    const checked = formData.additionalServices.includes(srv);
-                    return (
-                      <button
-                        key={srv}
-                        type="button"
-                        onClick={() => toggleService(srv)}
-                        className={`flex items-center gap-2.5 p-2.5 rounded-lg border text-left transition-colors cursor-pointer ${
-                          checked
-                            ? 'bg-blue-950/60 border-blue-500/60 text-white'
-                            : 'bg-slate-950/40 border-slate-800/80 text-slate-400 hover:border-slate-700'
-                        }`}
-                      >
-                        <div className={`w-4 h-4 rounded flex items-center justify-center border ${
-                          checked ? 'bg-blue-500 border-blue-400 text-white' : 'border-slate-700'
-                        }`}>
-                          {checked && <Check className="w-3 h-3 stroke-[3]" />}
-                        </div>
-                        <span className="text-xs">{srv}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Requirements & Notes */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs pt-2">
-                <div>
-                  <label className="block text-slate-300 font-semibold mb-1">
-                    Special Production Requirements
-                  </label>
-                  <textarea
-                    rows={3}
-                    placeholder="e.g., Dual commentary in English & Kannada, sponsor banner timing, extra boundary roamers..."
-                    value={formData.requirements}
-                    onChange={(e) => setFormData({ ...formData, requirements: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-950/80 border border-slate-800 rounded-lg text-white focus:outline-none focus:border-sky-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-slate-300 font-semibold mb-1">
-                    Additional Notes / Tournament Schedule
-                  </label>
-                  <textarea
-                    rows={3}
-                    placeholder="e.g., Knockout matches followed by finals, player of the match ceremony timings..."
-                    value={formData.notes}
-                    onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-950/80 border border-slate-800 rounded-lg text-white focus:outline-none focus:border-sky-500"
-                  />
-                </div>
-              </div>
-
-              {/* Upload Simulation Area */}
-              <div className="p-4 rounded-xl bg-slate-950/60 border border-dashed border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-sky-500/10 flex items-center justify-center text-sky-400">
-                    <UploadCloud className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <span className="font-semibold text-white block">Event Poster & Reference Assets</span>
-                    <span className="text-slate-500 text-[11px]">Upload logos, schedule PDF, or tournament graphics</span>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setFormData({ ...formData, posterName: 'Tournament_Poster_Final.png', referenceCount: 2 })}
-                    className="px-3 py-1.5 rounded bg-slate-900 hover:bg-slate-800 border border-slate-700 text-sky-400 font-semibold text-xs cursor-pointer"
-                  >
-                    {formData.posterName ? '✓ Assets Attached' : '+ Attach Reference Files'}
-                  </button>
-                </div>
-              </div>
-
             </div>
 
             {/* Step 4: Organizer & Committee Responsibilities (Mandatory Conditions) */}
@@ -698,7 +548,7 @@ Notes: ${booking.notes || 'None'}`;
                     Organizer / Committee Responsibilities (Mandatory Terms)
                   </h3>
                   <span className="text-[11px] text-amber-400 font-mono block">
-                    Tournament Organizer / Committee ko niche di gayi provisions ground par pradan karna anivarya (mandatory) hai:
+                    The tournament organizer or organizing committee is required to provide the following arrangements on-ground:
                   </span>
                 </div>
               </div>
@@ -791,14 +641,9 @@ Notes: ${booking.notes || 'None'}`;
                     }}
                     className="mt-1 w-5 h-5 rounded border-slate-700 text-emerald-600 focus:ring-emerald-500 bg-slate-900 cursor-pointer"
                   />
-                  <div className="space-y-1">
-                    <span className="text-xs sm:text-sm font-bold block leading-snug">
-                      I / We confirm that as the Tournament Organizer or Committee, we agree to arrange and provide the above facilities (Traveling, Food & Stay, High-Speed Internet / WiFi, and Power) for the ITC SPORTS broadcast crew. *
-                    </span>
-                    <span className="text-[11px] text-slate-400 block font-mono">
-                      (Hum confirm karte hain ki Traveling, Food/Stay, High-Speed Internet WiFi aur Electricity suvidhayein Organizer/Committee dwara provide ki jayengi.)
-                    </span>
-                  </div>
+                  <span className="text-xs sm:text-sm font-bold block leading-snug">
+                    I / We confirm that as the Tournament Organizer or Committee, we agree to arrange and provide the above facilities (Traveling, Food & Stay, High-Speed Internet / WiFi, and Power) for the ITC SPORTS broadcast crew. *
+                  </span>
                 </label>
               </div>
 
