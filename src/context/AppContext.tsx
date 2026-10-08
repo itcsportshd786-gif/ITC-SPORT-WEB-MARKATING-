@@ -154,6 +154,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         if (!parsed.adminPassword || parsed.adminPassword === 'admin' || parsed.adminPassword === 'itc@sports2026' || parsed.adminPassword === 'admin123') {
           parsed.adminPassword = 'asifmulla786';
         }
+        if (parsed.liveStream?.youtubeUrl?.includes('placeholder')) {
+          parsed.liveStream.youtubeUrl = '';
+          parsed.liveStream.isLive = false;
+        }
         return parsed;
       } catch {
         return INITIAL_WEBSITE_SETTINGS;
@@ -322,10 +326,43 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       }
     );
 
+    // 4. Sync Live Stream match data across ALL devices, domains & browsers in real time
+    const unsubLiveStream = onSnapshot(
+      doc(db, 'livestream', 'active'),
+      (docSnap) => {
+        if (docSnap.exists()) {
+          const cloudStream = docSnap.data() as WebsiteSettings['liveStream'];
+          if (cloudStream && typeof cloudStream === 'object') {
+            setSettings((prev) => {
+              if (
+                prev.liveStream?.youtubeUrl === cloudStream.youtubeUrl &&
+                prev.liveStream?.isLive === cloudStream.isLive &&
+                prev.liveStream?.matchTitle === cloudStream.matchTitle &&
+                prev.liveStream?.tournamentName === cloudStream.tournamentName
+              ) {
+                return prev;
+              }
+              return {
+                ...prev,
+                liveStream: {
+                  ...prev.liveStream,
+                  ...cloudStream
+                }
+              };
+            });
+          }
+        }
+      },
+      (error) => {
+        console.warn('Firestore livestream snapshot warning:', error);
+      }
+    );
+
     return () => {
       unsubBookings();
       unsubInvoices();
       unsubClients();
+      unsubLiveStream();
     };
   }, []);
 
@@ -379,14 +416,29 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const updateLiveStream = (config: Partial<WebsiteSettings['liveStream']>) => {
+    const updated = {
+      ...settings.liveStream,
+      ...config
+    };
+
     setSettings((prev) => ({
       ...prev,
-      liveStream: {
-        ...prev.liveStream,
-        ...config
-      }
+      liveStream: updated
     }));
-    showToast('Live stream parameters updated', 'success');
+
+    // Instantly sync to Firestore Cloud so every user, domain (e.g. Render) & mobile browser updates in real time!
+    try {
+      setDoc(doc(db, 'livestream', 'active'), {
+        ...updated,
+        updatedAt: new Date().toISOString()
+      }, { merge: true }).catch((err) => {
+        console.warn('Could not sync livestream to Firestore:', err);
+      });
+    } catch (err) {
+      console.warn('Error initiating livestream Firestore sync:', err);
+    }
+
+    showToast('Live stream parameters updated and synced across all devices!', 'success');
   };
 
   const updateAdminPassword = (newPassword: string) => {

@@ -72,10 +72,10 @@ export const INITIAL_WEBSITE_SETTINGS: WebsiteSettings = {
   aboutText: 'ITC SPORTS is a professional sports broadcasting and production company delivering broadcast-grade live coverage for cricket tournaments, state leagues, and marquee sporting events across India. From multi-camera setups with telephoto lenses and slow-motion replays to customized live on-screen scoreboards and third umpire systems, we bring international TV broadcast quality to every cricket ground.',
   adminPassword: 'asifmulla786',
   liveStream: {
-    youtubeUrl: 'https://www.youtube.com/watch?v=live_stream_placeholder',
-    isLive: true,
-    matchTitle: 'ITC SPORTS Cricket League 2026 - Live Match Coverage',
-    tournamentName: 'Championship Trophy',
+    youtubeUrl: '',
+    isLive: false,
+    matchTitle: 'Belagavi Champions Trophy 2026 - Live Match Coverage',
+    tournamentName: 'Belagavi Premier League',
     streamDescription: 'Live multi-camera cricket stream in 1080p 60fps HD with instant replay and dynamic on-screen scorecard.'
   },
   themePreset: 'black-blue',

@@ -85,7 +85,7 @@ export const GallerySection: React.FC = () => {
 
             <div className="space-y-1 border-l border-slate-800">
               <span className="text-2xl sm:text-3xl font-extrabold text-amber-400 font-broadcast tracking-tight">
-                2.5M+
+                40M+
               </span>
               <span className="text-[11px] text-slate-400 uppercase block">
                 Live YouTube Views

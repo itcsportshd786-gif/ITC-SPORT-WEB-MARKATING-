@@ -488,21 +488,24 @@ Experience the Game Like Never Before.
   // Helper for YouTube embed preview
   const getEmbedPreviewUrl = (url: string) => {
     if (!url) return '';
+    const clean = url.trim();
+    if (clean.includes('placeholder')) return '';
     try {
-      if (url.includes('youtube.com/embed/')) return url;
-      if (url.includes('watch?v=')) {
-        const id = url.split('watch?v=')[1]?.split('&')[0];
-        return id ? `https://www.youtube.com/embed/${id}` : '';
+      let id = '';
+      if (clean.includes('youtube.com/embed/')) {
+        id = clean.split('embed/')[1]?.split('?')[0]?.split('&')[0];
+      } else if (clean.includes('watch?v=')) {
+        id = clean.split('watch?v=')[1]?.split('&')[0]?.split('#')[0];
+      } else if (clean.includes('youtu.be/')) {
+        id = clean.split('youtu.be/')[1]?.split('?')[0]?.split('&')[0];
+      } else if (clean.includes('youtube.com/live/')) {
+        id = clean.split('youtube.com/live/')[1]?.split('?')[0]?.split('&')[0];
+      } else if (clean.includes('youtube.com/shorts/')) {
+        id = clean.split('shorts/')[1]?.split('?')[0]?.split('&')[0];
+      } else if (/^[a-zA-Z0-9_-]{11}$/.test(clean)) {
+        id = clean;
       }
-      if (url.includes('youtu.be/')) {
-        const id = url.split('youtu.be/')[1]?.split('?')[0];
-        return id ? `https://www.youtube.com/embed/${id}` : '';
-      }
-      if (url.includes('youtube.com/live/')) {
-        const id = url.split('youtube.com/live/')[1]?.split('?')[0];
-        return id ? `https://www.youtube.com/embed/${id}` : '';
-      }
-      return url;
+      return id ? `https://www.youtube-nocookie.com/embed/${id}?rel=0` : '';
     } catch {
       return '';
     }
@@ -737,19 +740,38 @@ Experience the Game Like Never Before.
 
                 {/* YouTube Link Input */}
                 <div>
-                  <label className="block text-xs font-semibold text-slate-200 mb-1.5">
-                    YouTube Stream / Video URL * (Apni YouTube Link Yahan Paste Karein)
-                  </label>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="text-xs font-semibold text-slate-200">
+                      YouTube Stream / Video URL (Paste Your YouTube Stream or Video Link)
+                    </label>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setLiveStreamForm({ ...liveStreamForm, youtubeUrl: 'https://www.youtube.com/watch?v=M7lc1UVf-VE' })}
+                        className="text-[10px] text-sky-400 hover:underline cursor-pointer"
+                      >
+                        + Paste Sample Link
+                      </button>
+                      {liveStreamForm.youtubeUrl && (
+                        <button
+                          type="button"
+                          onClick={() => setLiveStreamForm({ ...liveStreamForm, youtubeUrl: '' })}
+                          className="text-[10px] text-rose-400 hover:underline cursor-pointer"
+                        >
+                          Clear Link
+                        </button>
+                      )}
+                    </div>
+                  </div>
                   <input
                     type="text"
-                    required
                     placeholder="e.g. https://www.youtube.com/watch?v=YOUR_VIDEO_ID or https://youtu.be/..."
                     value={liveStreamForm.youtubeUrl}
                     onChange={(e) => setLiveStreamForm({ ...liveStreamForm, youtubeUrl: e.target.value })}
                     className="w-full px-3.5 py-3 bg-slate-950 border border-slate-700 rounded-xl text-white text-xs font-mono focus:outline-none focus:border-rose-500"
                   />
                   <p className="text-[11px] text-slate-400 mt-1">
-                    Accepts any YouTube stream link, normal video link, or shortened youtu.be link.
+                    Accepts any YouTube live stream link, regular match highlight video, or shortened youtu.be link.
                   </p>
                 </div>
 

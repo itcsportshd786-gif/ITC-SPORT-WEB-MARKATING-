@@ -27,8 +27,12 @@ service cloud.firestore {
 
     // Live Stream match data
     match /livestream/{streamId} {
-      allow read: if true;
-      allow write: if true;
+      allow read, write: if true;
+    }
+
+    // Website Settings
+    match /settings/{settingId} {
+      allow read, write: if true;
     }
   }
 }
